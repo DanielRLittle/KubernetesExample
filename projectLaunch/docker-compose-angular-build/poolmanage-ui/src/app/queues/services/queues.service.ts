@@ -11,12 +11,14 @@ export class QueuesService {
 
   constructor(private req: RequestService) { }
 
+  url: string = "/api";
+
   getUserData(): Observable<IUser[]> {
-    return this.req.get<IUser[]>("http://localhost:8080/get");
+    return this.req.get<IUser[]>(this.url+"/get");
   }
 
   getOne(user: IUser): Observable<IUser[]> {
-    return this.req.getOne<IUser[]>("http://localhost:8080/get-one", user);
+    return this.req.getOne<IUser[]>(this.url+"/get-one", user);
   }
 
   postUserData<Iuser>(url: string, user: IUser): Observable<Iuser[]> {
@@ -26,14 +28,14 @@ export class QueuesService {
 
   deleteUserData<Iuser>(user: IUser): Observable<Iuser[]> {
     return this.req.delete<Iuser[]>(
-      "http://localhost:8080/delete",
+      this.url+"/delete",
       { id: user._id }
     );
   }
 
   updateGame<Iuser>(currentGame: IUser, newGame: IUser): Observable<Iuser[]>{
    return this.req.update<Iuser[]>(
-     "http://localhost:8080/update",
+	   this.url+"/update",
      {currentGame, newGame}
      
    ) 

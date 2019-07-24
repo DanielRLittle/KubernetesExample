@@ -52,7 +52,7 @@ export class TableComponent implements OnInit {
   clicked2() {
     const user: User = this.matchForm.value;
 
-    this.queue.postUserData("http://localhost:8080/addQueue", user).subscribe((x) => {
+    this.queue.postUserData(this.queue.url+"/addQueue", user).subscribe((x) => {
       console.log('POST REQUEST COMPLETE', x);
       this.clicked();
     })

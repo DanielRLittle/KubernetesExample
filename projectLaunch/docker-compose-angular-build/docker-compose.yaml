@@ -1,0 +1,44 @@
+version: "3.7"
+
+services:
+  mongo:
+    image: mongo
+    volumes:
+    - type: volume
+      source: mongo
+      target: /data/db
+
+  api_server:
+    image: api_server
+    build: ./poolmanager-api
+    ports:
+    - target: 8080    
+      published: 8080
+    depends_on:
+    - mongo
+
+  jenkins:
+    image: bobcrutchley/jenkins
+    volumes:
+    - type: volume
+      source: jenkins-home
+      target: /var/jenkins_home
+    - type: bind
+      source: /var/run/docker.sock
+      target: /var/run/docker.sock
+    environment:
+    - JENKINS_OPTS="-prefix=/jenkins"
+
+  ui:
+    image: angular_server
+    build: ./poolmanage-ui
+    ports:
+    - target: 80
+      published: 80
+    depends_on:
+    - jenkins
+    - api_server
+
+volumes:
+  jenkins-home:
+  mongo:

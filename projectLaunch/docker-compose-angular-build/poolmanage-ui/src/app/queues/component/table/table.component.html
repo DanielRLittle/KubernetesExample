@@ -1,0 +1,32 @@
+<button (click)="clicked()">Get all</button>
+
+<form [formGroup]="matchForm">
+<input type="text" placeholder="player1name" formControlName="player1name">
+<input type="text" placeholder="player2name" formControlName="player2name">
+<input type="number" placeholder="gameRules" formControlName="gameRules">
+</form>
+
+<button (click)="clicked2()"> Add</button>
+<button (click)="delete()"> Delete</button>
+<button (click)="findOne()"> Get One</button>
+<table class="table col-md-4">
+    <thead>
+      <tr>
+        <th scope="col">Player 1</th>
+        <th scope="col"></th>
+        <th scope="col">Player 2</th>
+        <th scope="col">Rule Set</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let queue of queues">
+        <td>{{queue.player1name}}</td>
+        <td>vs</td>
+        <td>{{queue.player2name}}</td>
+        <td>{{queue.gameRules}}</td>
+        <td><button (click)="delete(queue)">Delete</button></td>
+        <td><button (click)="updateQueue(queue)">Update fixture</button></td>
+      </tr>
+      
+    </tbody>
+  </table>
